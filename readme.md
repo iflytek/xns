@@ -28,12 +28,6 @@ httpDNS是一种提供http协议域名解析的服务。
 
 # 快速开始
 **1 快速部署**
-
-- k8s
-````
-kubectl create -f http://github.com/xfyun/xns/blob/master/docs/install/k8s.yml
-
-````
 - [docker-compose](./docs/install-docker-compose.md)
 - [从源码安装](./docs/install-binary.md)
 
