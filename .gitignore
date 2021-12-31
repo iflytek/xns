@@ -1,0 +1,15 @@
+.idea
+*.iml
+*.exe
+*.log
+vendor
+docs/ipqq.txt
+docs/ns.drawio
+docs/review.md
+nxs.sh
+xns.cfg
+xns.cfg.json
+backup.json
+.drone.yml
+Dockerfile
+nameserver.cfg

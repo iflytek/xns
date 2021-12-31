@@ -1,0 +1,38 @@
+
+{
+  "and": [
+    {
+      "matches": {
+        "version": "2.0"
+      }
+    },
+    {
+      "matches": {
+        "app_id": "100IME",
+        "uid": "12330123213"
+      }
+    },
+    {
+      "matches": {
+        "appId": "123456"
+      }
+    }
+  ],
+  "or": [
+    {
+      "in": {
+          "appId": ["123445","5677889"]
+      },
+      "hasPrefix": {
+        "request_path": "/v2/iat"
+      },
+      "hasSuffix": {
+        "request_path": "/msp.do"
+      },
+      "matchRegexp": {
+        "app_id": "^/v2/iat/.$"
+      }
+    }
+  ]
+
+}

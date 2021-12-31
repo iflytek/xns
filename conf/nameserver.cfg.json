@@ -1,0 +1,99 @@
+{
+    "admin_listen": ":8806",
+    "nameserver_listen": ":4567",
+    "metrics_listen": ":5678",
+    "login": {
+        "enabled": true,
+        "session_timeout": 3600
+    },
+    "database": {
+        "driver": "postgres",
+        "connect_url": "host=10.1.87.69 port=55433 dbname=nameserver_rel2 user=gitlab sslmode=disable password=123456"
+    },
+    "cluster_events": {
+        "pull_interval": 0
+    },
+    "resources": {
+        "ip_src": "/Users/sjliu/temp/ip"
+    },
+    "log": {
+        "access": {
+            "level": "info",
+            "file": "./log/access.log",
+            "max_size": 200,
+            "max_backup": 30,
+            "max_age": 0,
+            "async": true,
+            "cache_max_count": 0,
+            "batch_size": 0,
+            "wash": 0,
+            "caller": true,
+            "caller_skip": 2
+        },
+        "admin": {
+            "level": "info",
+            "file": "./log/admin.log",
+            "max_size": 200,
+            "max_backup": 30,
+            "max_age": 0,
+            "async": true,
+            "cache_max_count": 0,
+            "batch_size": 0,
+            "wash": 0,
+            "caller": true,
+            "caller_skip": 2
+        },
+        "cluster": {
+            "level": "info",
+            "file": "./log/cluster.log",
+            "max_size": 200,
+            "max_backup": 30,
+            "max_age": 0,
+            "async": true,
+            "cache_max_count": 0,
+            "batch_size": 0,
+            "wash": 0,
+            "caller": true,
+            "caller_skip": 2
+        },
+        "debug": {
+            "level": "info",
+            "file": "./log/debug.log",
+            "max_size": 200,
+            "max_backup": 30,
+            "max_age": 0,
+            "async": true,
+            "cache_max_count": 0,
+            "batch_size": 0,
+            "wash": 0,
+            "caller": true,
+            "caller_skip": 2
+        },
+        "error": {
+            "level": "info",
+            "file": "./log/error.log",
+            "max_size": 200,
+            "max_backup": 30,
+            "max_age": 0,
+            "async": true,
+            "cache_max_count": 0,
+            "batch_size": 0,
+            "wash": 0,
+            "caller": true,
+            "caller_skip": 2
+        },
+        "runtime": {
+            "level": "info",
+            "file": "./log/runtime.log",
+            "max_size": 200,
+            "max_backup": 30,
+            "max_age": 0,
+            "async": true,
+            "cache_max_count": 0,
+            "batch_size": 0,
+            "wash": 0,
+            "caller": true,
+            "caller_skip": 2
+        }
+    }
+}

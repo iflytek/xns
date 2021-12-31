@@ -1,0 +1,3803 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nameserver api 文档</title>
+</head>
+<style type="text/css">
+    html {
+        font-family: sans-serif;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+    body {
+        margin: 10px;
+    }
+    table {
+        border-collapse: collapse;
+        border-spacing: 4;
+        border: 1px solid #cbcbcb;
+        border-left: 1px solid #cbcbcb;
+        border-width: 0 0 0 1px;
+        font-size: inherit;
+        margin: 0;
+        overflow: visible;
+        padding: .5em 1em;
+        border-collapse: collapse;
+        border-spacing: 0;
+        empty-cells: show;
+        border: 1px solid #cbcbcb;
+    }
+
+    td,th {
+        padding: 5px;
+    }
+
+    textarea{
+        padding: 0;
+        height: auto;
+        width: 400px;
+    }
+
+    input {
+        border-widht:3px;
+        font-size:18px;
+        width: 350px;
+    }
+
+
+    .header{border-bottom:1px solid #ccc;margin-bottom:5px;}
+    .MainContainer{display:flex;min-width:960px;max-width:1600px;}
+    .sidebar{width:280px;height:calc( 100% - 30px );margin-right:-180px;border-right:1px solid #ccc;min-height:500px;padding:5px; position:fixed;overflow:auto}
+    .main{margin-left:310px;padding:5px;}
+    .content{padding:0 10px;}
+
+</style>
+<body>
+
+
+<div class="page">
+    <div class="MainContainer">
+        <div class="sidebar">
+            <h3 id="indexes"> 目录 </h3>
+            <a href="#index_0">0__add idc</a><br>
+            <a href="#index_1">1__update idc</a><br>
+            <a href="#index_2">2__get idc</a><br>
+            <a href="#index_3">3__get idcs</a><br>
+            <a href="#index_4">4__delete idc</a><br>
+            <a href="#index_5">5__add group</a><br>
+            <a href="#index_6">6__update group</a><br>
+            <a href="#index_7">7__get group list</a><br>
+            <a href="#index_8">8__get group</a><br>
+            <a href="#index_9">9__delete group</a><br>
+            <a href="#index_10">10__add server to group</a><br>
+            <a href="#index_11">11__get servers of group</a><br>
+            <a href="#index_12">12__delete group server</a><br>
+            <a href="#index_13">13__get group status</a><br>
+            <a href="#index_14">14__add pool</a><br>
+            <a href="#index_15">15__update pool</a><br>
+            <a href="#index_16">16__get pools</a><br>
+            <a href="#index_17">17__get pool</a><br>
+            <a href="#index_18">18__delete pool</a><br>
+            <a href="#index_19">19__add group to pool</a><br>
+            <a href="#index_20">20__get pool groups</a><br>
+            <a href="#index_21">21__delete pool group</a><br>
+            <a href="#index_22">22__create service</a><br>
+            <a href="#index_23">23__update service</a><br>
+            <a href="#index_24">24__get service </a><br>
+            <a href="#index_25">25__get services list</a><br>
+            <a href="#index_26">26__delete service</a><br>
+            <a href="#index_27">27__service add route</a><br>
+            <a href="#index_28">28__delete route</a><br>
+            <a href="#index_29">29__update routes</a><br>
+            <a href="#index_30">30__service get routes</a><br>
+            <a href="#index_31">31__get all routes</a><br>
+            <a href="#index_32">32__get  route</a><br>
+            <a href="#index_33">33__create region</a><br>
+            <a href="#index_34">34__update region</a><br>
+            <a href="#index_35">35__delete region </a><br>
+            <a href="#index_36">36__get all regions</a><br>
+            <a href="#index_37">37__get region</a><br>
+            <a href="#index_38">38__get region provinces</a><br>
+            <a href="#index_39">39__get province cities</a><br>
+            <a href="#index_40">40__add province</a><br>
+            <a href="#index_41">41__update province</a><br>
+            <a href="#index_42">42__get province</a><br>
+            <a href="#index_43">43__get provinces</a><br>
+            <a href="#index_44">44__add cities</a><br>
+            <a href="#index_45">45__update city</a><br>
+            <a href="#index_46">46__get city</a><br>
+            <a href="#index_47">47__get cities</a><br>
+            <a href="#index_48">48__add parameters</a><br>
+            <a href="#index_49">49__get params value by name</a><br>
+            <a href="#index_50">50__get All Params</a><br>
+            <a href="#index_51">51__delete parameters</a><br>
+            <a href="#index_52">52__add country</a><br>
+            <a href="#index_53">53__get country list</a><br>
+            <a href="#index_54">54__delete country</a><br>
+            <a href="#index_55">55__get ip info</a><br>
+            <a href="#index_56">56__add domain</a><br>
+            <a href="#index_57">57__get domains</a><br>
+
+        </div>
+        <div  id="main1" class="main">
+
+            <h3 id="index_0"> 1.0 add idc </h3>
+            <h4>添加机房</h4>
+            <h4>POST &nbsp;<input id='input0' value='/idcs'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> name </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> format: name;  </td>
+                    <td> body </td>
+                    <td> 机房名称 </td>
+                </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area0">
+{
+   "description": "",
+   "name": ""
+}
+</textarea>
+            <button onClick="request('POST','/idcs','0','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp0" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": ""
+   }
+}</textarea><h3 id="index_1"> 1.1 update idc </h3>
+            <h4>更新机房</h4>
+            <h4>PATCH &nbsp;<input id='input1' value='/idcs/:id'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> idc name or id </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> 机房名称 </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area1">
+{
+   "description": "",
+   "name": ""
+}
+</textarea>
+            <button onClick="request('PATCH','/idcs/:id','1','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp1" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_2"> 1.2 get idc </h3>
+            <h4>获取机房</h4>
+            <h4>GET &nbsp;<input id='input2' value='/idcs/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area2">
+
+</textarea>
+            <button onClick="request('GET','/idcs/:id','2','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp2" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_3"> 1.3 get idcs </h3>
+            <h4>获取机房列表</h4>
+            <h4>GET &nbsp;<input id='input3' value='/idcs'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area3">
+
+</textarea>
+            <button onClick="request('GET','/idcs','3','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp3" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "name": "dx"
+      }
+   ]
+}</textarea><h3 id="index_4"> 1.4 delete idc </h3>
+            <h4>删除机房</h4>
+            <h4>DELETE &nbsp;<input id='input4' value='/idcs/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area4">
+
+</textarea>
+            <button onClick="request('DELETE','/idcs/:id','4','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp4" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_5"> 1.5 add group </h3>
+            <h4>新增group</h4>
+            <h4>POST &nbsp;<input id='input5' value='/groups'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> description </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> true </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> group 名称 </td>
+            </tr><tr>
+                <td> healthy_check_mode </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: tcp,http;  </td>
+                <td> body </td>
+                <td> 健康检查模式 </td>
+            </tr><tr>
+                <td> healthy_check_config </td>
+                <td> object </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 健康检查配置,json 格式 </td>
+            </tr><tr>
+                <td> healthy_check_config.host </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> mode=http时必定传， </td>
+            </tr><tr>
+                <td> healthy_check_config.method </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: GET,POST,PATCH,PUT,HEAD,OPTION;  </td>
+                <td> body </td>
+                <td> mode=http时必定传， </td>
+            </tr><tr>
+                <td> healthy_check_config.path </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> mode=http时必定传， </td>
+            </tr><tr>
+                <td> healthy_check_config.timeout </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> maximum: 60; minimum: 1;  </td>
+                <td> body </td>
+                <td> 健康检查超时时间，单位s </td>
+            </tr><tr>
+                <td> healthy_check_config.body </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> mode=http 时需要 </td>
+            </tr><tr>
+                <td> healthy_check_config.success_codes </td>
+                <td> array </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> mode=http 时需要，健康检查成功响应status code </td>
+            </tr><tr>
+                <td> healthy_check_config.success_codes[*] </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> maximum: 599; minimum: 100;  </td>
+                <td> body </td>
+                <td> mode=http 时需要，健康检查成功响应status code </td>
+            </tr><tr>
+                <td> healthy_num </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于检查不健康的节点，成功多少次认为健康，0表示不开启健康检查 </td>
+            </tr><tr>
+                <td> un_healthy_num </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于健康的节点，失败多少次认为节点不健康 </td>
+            </tr><tr>
+                <td> healthy_interval </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于健康的节点，健康检查时间间隔，单位s  </td>
+            </tr><tr>
+                <td> unhealthy_interval </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于不健康的节点，健康检查时间间隔，单位s  </td>
+            </tr><tr>
+                <td> lb_mode </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: loop;  </td>
+                <td> body </td>
+                <td> 负载均衡方式 </td>
+            </tr><tr>
+                <td> lb_config </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置,json 格式 </td>
+            </tr><tr>
+                <td> lb_config<*,value> </td>
+                <td> any </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置,json 格式 </td>
+            </tr><tr>
+                <td> server_tags </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 给服务器打的标签,json  </td>
+            </tr><tr>
+                <td> server_tags<*,value> </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 给服务器打的标签,json  </td>
+            </tr><tr>
+                <td> ip_alloc_num </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 一次性下发的ip数量 </td>
+            </tr><tr>
+                <td> default_servers </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: ipv4s;  </td>
+                <td> body </td>
+                <td> 默认ip集合 </td>
+            </tr><tr>
+                <td> port </td>
+                <td> int </td>
+                <td> true </td>
+                <td> - </td>
+                <td> maximum: 65535; minimum: 1;  </td>
+                <td> body </td>
+                <td> 下发的端口号，同时用于健康检查 </td>
+            </tr><tr>
+                <td> idc_id </td>
+                <td> string </td>
+                <td> true </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> group 所在机房 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area5">
+{
+   "default_servers": "",
+   "description": "",
+   "healthy_check_config": null,
+   "healthy_check_mode": "",
+   "healthy_interval": 0,
+   "healthy_num": 0,
+   "idc_id": "",
+   "ip_alloc_num": 0,
+   "lb_config": null,
+   "lb_mode": "",
+   "name": "",
+   "port": 0,
+   "server_tags": null,
+   "un_healthy_num": 0,
+   "unhealthy_interval": 0
+}
+</textarea>
+            <button onClick="request('POST','/groups','5','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp5" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "idc_id": "",
+      "healthy_check_mode": "",
+      "healthy_check_config": null,
+      "healthy_num": 0,
+      "un_healthy_num": 0,
+      "healthy_interval": 0,
+      "unhealthy_interval": 0,
+      "lb_mode": "",
+      "lb_config": null,
+      "server_tags": null,
+      "ip_alloc_num": 0,
+      "default_servers": "",
+      "port": 0
+   }
+}</textarea><h3 id="index_6"> 1.6 update group </h3>
+            <h4>更新group</h4>
+            <h4>PATCH &nbsp;<input id='input6' value='/groups/:id'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> group id or name </td>
+                </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> true </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> group 名称 </td>
+            </tr><tr>
+                <td> healthy_check_mode </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: tcp,http;  </td>
+                <td> body </td>
+                <td> 健康检查模式 </td>
+            </tr><tr>
+                <td> healthy_check_config </td>
+                <td> object </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 健康检查配置,json 格式 </td>
+            </tr><tr>
+                <td> healthy_check_config.host </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> mode=http时必定传， </td>
+            </tr><tr>
+                <td> healthy_check_config.method </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: GET,POST,PATCH,PUT,HEAD,OPTION;  </td>
+                <td> body </td>
+                <td> mode=http时必定传， </td>
+            </tr><tr>
+                <td> healthy_check_config.path </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> mode=http时必定传， </td>
+            </tr><tr>
+                <td> healthy_check_config.timeout </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> maximum: 60; minimum: 1;  </td>
+                <td> body </td>
+                <td> 健康检查超时时间，单位s </td>
+            </tr><tr>
+                <td> healthy_check_config.body </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> mode=http 时需要 </td>
+            </tr><tr>
+                <td> healthy_check_config.success_codes </td>
+                <td> array </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> mode=http 时需要，健康检查成功响应status code </td>
+            </tr><tr>
+                <td> healthy_check_config.success_codes[*] </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> maximum: 599; minimum: 100;  </td>
+                <td> body </td>
+                <td> mode=http 时需要，健康检查成功响应status code </td>
+            </tr><tr>
+                <td> healthy_num </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于检查不健康的节点，成功多少次认为健康，0表示不开启健康检查 </td>
+            </tr><tr>
+                <td> un_healthy_num </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于健康的节点，失败多少次认为节点不健康 </td>
+            </tr><tr>
+                <td> healthy_interval </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于健康的节点，健康检查时间间隔，单位s  </td>
+            </tr><tr>
+                <td> unhealthy_interval </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 对于不健康的节点，健康检查时间间隔，单位s  </td>
+            </tr><tr>
+                <td> lb_mode </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: loop;  </td>
+                <td> body </td>
+                <td> 负载均衡方式 </td>
+            </tr><tr>
+                <td> lb_config </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置,json 格式 </td>
+            </tr><tr>
+                <td> lb_config<*,value> </td>
+                <td> any </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置,json 格式 </td>
+            </tr><tr>
+                <td> server_tags </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 给服务器打的标签,json  </td>
+            </tr><tr>
+                <td> server_tags<*,value> </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 给服务器打的标签,json  </td>
+            </tr><tr>
+                <td> ip_alloc_num </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 0;  </td>
+                <td> body </td>
+                <td> 一次性下发的ip数量 </td>
+            </tr><tr>
+                <td> default_servers </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: ipv4s;  </td>
+                <td> body </td>
+                <td> 默认ip集合 </td>
+            </tr><tr>
+                <td> port </td>
+                <td> int </td>
+                <td> true </td>
+                <td> - </td>
+                <td> maximum: 65535; minimum: 1;  </td>
+                <td> body </td>
+                <td> 下发的端口号，同时用于健康检查 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area6">
+{
+   "default_servers": "",
+   "description": "",
+   "healthy_check_config": null,
+   "healthy_check_mode": "",
+   "healthy_interval": 0,
+   "healthy_num": 0,
+   "ip_alloc_num": 0,
+   "lb_config": null,
+   "lb_mode": "",
+   "name": "",
+   "port": 0,
+   "server_tags": null,
+   "un_healthy_num": 0,
+   "unhealthy_interval": 0
+}
+</textarea>
+            <button onClick="request('PATCH','/groups/:id','6','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp6" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "idc_id": "",
+      "healthy_check_mode": "",
+      "healthy_check_config": null,
+      "healthy_num": 0,
+      "un_healthy_num": 0,
+      "healthy_interval": 0,
+      "unhealthy_interval": 0,
+      "lb_mode": "",
+      "lb_config": null,
+      "server_tags": null,
+      "ip_alloc_num": 0,
+      "default_servers": "",
+      "port": 0
+   }
+}</textarea><h3 id="index_7"> 1.7 get group list </h3>
+            <h4>获取服务器组列表</h4>
+            <h4>GET &nbsp;<input id='input7' value='/groups'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area7">
+
+</textarea>
+            <button onClick="request('GET','/groups','7','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp7" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_8"> 1.8 get group </h3>
+            <h4>根据id 或者name 获取 group</h4>
+            <h4>GET &nbsp;<input id='input8' value='/groups/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area8">
+
+</textarea>
+            <button onClick="request('GET','/groups/:id','8','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp8" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "idc_id": "",
+      "healthy_check_mode": "",
+      "healthy_check_config": null,
+      "healthy_num": 0,
+      "un_healthy_num": 0,
+      "healthy_interval": 0,
+      "unhealthy_interval": 0,
+      "lb_mode": "",
+      "lb_config": null,
+      "server_tags": null,
+      "ip_alloc_num": 0,
+      "default_servers": "",
+      "port": 0
+   }
+}</textarea><h3 id="index_9"> 1.9 delete group </h3>
+            <h4>根据id 或者name 获取 删除group</h4>
+            <h4>DELETE &nbsp;<input id='input9' value='/groups/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area9">
+
+</textarea>
+            <button onClick="request('DELETE','/groups/:id','9','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp9" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_10"> 1.10 add server to group </h3>
+            <h4>向服务器组添加服务器</h4>
+            <h4>POST &nbsp;<input id='input10' value='/groups/:id/servers'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> group_id or name </td>
+                </tr><tr>
+                <td> server_ip </td>
+                <td> string </td>
+                <td> true </td>
+                <td> - </td>
+                <td> format: ipv4;  </td>
+                <td> body </td>
+                <td> server_ip </td>
+            </tr><tr>
+                <td> weight </td>
+                <td> int </td>
+                <td> true </td>
+                <td> - </td>
+                <td> maximum: 100; minimum: 1;  </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area10">
+{
+   "server_ip": "",
+   "weight": 0
+}
+</textarea>
+            <button onClick="request('POST','/groups/:id/servers','10','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp10" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "server_ip": "",
+      "group_id": "",
+      "weight": 0
+   }
+}</textarea><h3 id="index_11"> 1.11 get servers of group </h3>
+            <h4></h4>
+            <h4>GET &nbsp;<input id='input11' value='/groups/:id/servers'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area11">
+
+</textarea>
+            <button onClick="request('GET','/groups/:id/servers','11','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp11" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "group_id": "",
+         "server": "",
+         "weight": 0,
+         "create_at": 0,
+         "update_at": 0,
+         "is_healthy": false
+      }
+   ]
+}</textarea><h3 id="index_12"> 1.12 delete group server </h3>
+            <h4>删除服务器组的服务器</h4>
+            <h4>DELETE &nbsp;<input id='input12' value='/groups/:id/servers/:server_id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> server_id </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> path </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area12">
+
+</textarea>
+            <button onClick="request('DELETE','/groups/:id/servers/:server_id','12','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp12" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_13"> 1.13 get group status </h3>
+            <h4></h4>
+            <h4>GET &nbsp;<input id='input13' value='/group_status'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area13">
+
+</textarea>
+            <button onClick="request('GET','/group_status','13','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp13" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_14"> 1.14 add pool </h3>
+            <h4>新增地址池</h4>
+            <h4>POST &nbsp;<input id='input14' value='/pools'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> description </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> lb_mode </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: 0,1;  </td>
+                <td> body </td>
+                <td> 负载均衡模式,0:机房就近选择，1:就近选择基础上按照机房权重选择 </td>
+            </tr><tr>
+                <td> lb_config </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置 </td>
+            </tr><tr>
+                <td> lb_config<*,value> </td>
+                <td> any </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置 </td>
+            </tr><tr>
+                <td> fail_over_config </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡选择失败时，兜底配置,object </td>
+            </tr><tr>
+                <td> fail_over_config<*,value> </td>
+                <td> any </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡选择失败时，兜底配置,object </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area14">
+{
+   "description": "",
+   "fail_over_config": null,
+   "lb_config": null,
+   "lb_mode": 0,
+   "name": ""
+}
+</textarea>
+            <button onClick="request('POST','/pools','14','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp14" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_15"> 1.15 update pool </h3>
+            <h4>更新地址池</h4>
+            <h4>PATCH &nbsp;<input id='input15' value='/pools/:id'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> lb_mode </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> enum: 0,1;  </td>
+                <td> body </td>
+                <td> 负载均衡模式,0:机房就近选择，1:就近选择基础上按照机房权重选择 </td>
+            </tr><tr>
+                <td> lb_config </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置 </td>
+            </tr><tr>
+                <td> lb_config<*,value> </td>
+                <td> any </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡配置 </td>
+            </tr><tr>
+                <td> fail_over_config </td>
+                <td> map </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡选择失败时，兜底配置,object </td>
+            </tr><tr>
+                <td> fail_over_config<*,value> </td>
+                <td> any </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td>  </td>
+                <td> 负载均衡选择失败时，兜底配置,object </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area15">
+{
+   "description": "",
+   "fail_over_config": null,
+   "lb_config": null,
+   "lb_mode": 0,
+   "name": ""
+}
+</textarea>
+            <button onClick="request('PATCH','/pools/:id','15','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp15" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "lb_mode": 0,
+      "lb_config": "",
+      "fail_over_config": ""
+   }
+}</textarea><h3 id="index_16"> 1.16 get pools </h3>
+            <h4>获取所有的地址池</h4>
+            <h4>GET &nbsp;<input id='input16' value='/pools'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area16">
+
+</textarea>
+            <button onClick="request('GET','/pools','16','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp16" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_17"> 1.17 get pool </h3>
+            <h4>获取所有的地址池</h4>
+            <h4>GET &nbsp;<input id='input17' value='/pools/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area17">
+
+</textarea>
+            <button onClick="request('GET','/pools/:id','17','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp17" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_18"> 1.18 delete pool </h3>
+            <h4>删除地址池</h4>
+            <h4>DELETE &nbsp;<input id='input18' value='/pools/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area18">
+
+</textarea>
+            <button onClick="request('DELETE','/pools/:id','18','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp18" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_19"> 1.19 add group to pool </h3>
+            <h4>给地址池添加服务器组</h4>
+            <h4>POST &nbsp;<input id='input19' value='/pools/:pool_id/groups'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> pool_id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> poolId or name </td>
+                </tr><tr>
+                <td> group_id </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> groupId or name </td>
+            </tr><tr>
+                <td> weight </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> maximum: 100; minimum: 1;  </td>
+                <td> body </td>
+                <td> 权重 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area19">
+{
+   "group_id": "",
+   "weight": 0
+}
+</textarea>
+            <button onClick="request('POST','/pools/:pool_id/groups','19','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp19" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_20"> 1.20 get pool groups </h3>
+            <h4>获取地址池的服务器组</h4>
+            <h4>GET &nbsp;<input id='input20' value='/pools/:id/groups'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area20">
+
+</textarea>
+            <button onClick="request('GET','/pools/:id/groups','20','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp20" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_21"> 1.21 delete pool group </h3>
+            <h4>删除pool 上的group</h4>
+            <h4>DELETE &nbsp;<input id='input21' value='/pools/:id/groups/:group_id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> poolId  </td>
+                </tr><tr>
+                <td> group_id </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> path </td>
+                <td> groupId or name </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area21">
+
+</textarea>
+            <button onClick="request('DELETE','/pools/:id/groups/:group_id','21','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp21" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_22"> 1.22 create service </h3>
+            <h4>创建服务</h4>
+            <h4>POST &nbsp;<input id='input22' value='/services'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> description </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> ttl </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 1;  </td>
+                <td> body </td>
+                <td> 客户端刷新dns时间间隔 </td>
+            </tr><tr>
+                <td> pool_id </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 服务的地址池名称 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area22">
+{
+   "description": "",
+   "name": "",
+   "pool_id": "",
+   "ttl": 0
+}
+</textarea>
+            <button onClick="request('POST','/services','22','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp22" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_23"> 1.23 update service </h3>
+            <h4>更新服务</h4>
+            <h4>PATCH &nbsp;<input id='input23' value='/services/:id'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> format: name;  </td>
+                    <td> path </td>
+                    <td> service id or service name </td>
+                </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: name;  </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> ttl </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> minimum: 1;  </td>
+                <td> body </td>
+                <td> 客户端刷新dns时间间隔 </td>
+            </tr><tr>
+                <td> pool_id </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 服务的地址池名称 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area23">
+{
+   "description": "",
+   "name": "",
+   "pool_id": "",
+   "ttl": 0
+}
+</textarea>
+            <button onClick="request('PATCH','/services/:id','23','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp23" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "ttl": 0,
+      "pool_id": ""
+   }
+}</textarea><h3 id="index_24"> 1.24 get service  </h3>
+            <h4>根据id或者name获取服务</h4>
+            <h4>GET &nbsp;<input id='input24' value='/services/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area24">
+
+</textarea>
+            <button onClick="request('GET','/services/:id','24','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp24" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "ttl": 0,
+      "pool_id": ""
+   }
+}</textarea><h3 id="index_25"> 1.25 get services list </h3>
+            <h4>获取服务列表</h4>
+            <h4>GET &nbsp;<input id='input25' value='/services'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area25">
+
+</textarea>
+            <button onClick="request('GET','/services','25','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp25" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_26"> 1.26 delete service </h3>
+            <h4>删除服务</h4>
+            <h4>DELETE &nbsp;<input id='input26' value='/services/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area26">
+
+</textarea>
+            <button onClick="request('DELETE','/services/:id','26','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp26" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_27"> 1.27 service add route </h3>
+            <h4>给服务添加路由</h4>
+            <h4>POST &nbsp;<input id='input27' value='/services/:service_id/routes'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> service_id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> service id </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> rules </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: rule;  </td>
+                <td> body </td>
+                <td> 路由规则,多个用','分隔,同一个规则中参数用'&'分割，，如   appid=123456&uid=5,appid=123&uid=6,规则中的地域填参数其code </td>
+            </tr><tr>
+                <td> domains </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: domains;  </td>
+                <td> body </td>
+                <td> 路由的域名，多个用','分隔 </td>
+            </tr><tr>
+                <td> priority </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 优先级,默认为0， </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area27">
+{
+   "description": "",
+   "domains": "",
+   "name": "",
+   "priority": 0,
+   "rules": ""
+}
+</textarea>
+            <button onClick="request('POST','/services/:service_id/routes','27','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp27" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_28"> 1.28 delete route </h3>
+            <h4>删除路由</h4>
+            <h4>DELETE &nbsp;<input id='input28' value='/routes/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area28">
+
+</textarea>
+            <button onClick="request('DELETE','/routes/:id','28','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp28" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_29"> 1.29 update routes </h3>
+            <h4>更新路由</h4>
+            <h4>PATCH &nbsp;<input id='input29' value='/routes/:id'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> format: uuid;  </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> rules </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: rule;  </td>
+                <td> body </td>
+                <td> 路由规则,多个用','分隔,同一个规则中参数用'&'分割，，如   appid=123456&uid=5,appid=123&uid=6,规则中的地域填参数其code </td>
+            </tr><tr>
+                <td> domains </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> format: domains;  </td>
+                <td> body </td>
+                <td> 路由的域名，多个用','分隔 </td>
+            </tr><tr>
+                <td> priority </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 优先级,默认为0， </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area29">
+{
+   "description": "",
+   "domains": "",
+   "name": "",
+   "priority": 0,
+   "rules": ""
+}
+</textarea>
+            <button onClick="request('PATCH','/routes/:id','29','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp29" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "service_id": "",
+      "rules": "",
+      "domains": "",
+      "priority": 0
+   }
+}</textarea><h3 id="index_30"> 1.30 service get routes </h3>
+            <h4></h4>
+            <h4>GET &nbsp;<input id='input30' value='/services/:id/routes'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area30">
+
+</textarea>
+            <button onClick="request('GET','/services/:id/routes','30','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp30" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_31"> 1.31 get all routes </h3>
+            <h4>获取全部的路由</h4>
+            <h4>GET &nbsp;<input id='input31' value='/routes'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> host </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> query </td>
+                    <td> host 模糊匹配 </td>
+                </tr><tr>
+                <td> rule </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> query </td>
+                <td> rule 模糊匹配 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area31">
+
+</textarea>
+            <button onClick="request('GET','/routes','31','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp31" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "name": "",
+         "service_id": "",
+         "rules": "",
+         "domains": "",
+         "priority": 0
+      }
+   ]
+}</textarea><h3 id="index_32"> 1.32 get  route </h3>
+            <h4>获取路由</h4>
+            <h4>GET &nbsp;<input id='input32' value='/routes/:id'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> id </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> id </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area32">
+
+</textarea>
+            <button onClick="request('GET','/routes/:id','32','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp32" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "service_id": "",
+      "rules": "",
+      "domains": "",
+      "priority": 0
+   }
+}</textarea><h3 id="index_33"> 1.33 create region </h3>
+            <h4>创建大区</h4>
+            <h4>POST &nbsp;<input id='input33' value='/regions'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> maximum: 9999; minimum: 1000;  </td>
+                    <td> body </td>
+                    <td> 大区的唯一代码 </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 大区名称 </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> idc_affinity </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 大区机房亲和性，值为机房的id，多个用, 隔开，优先级依次降低 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area33">
+{
+   "code": 0,
+   "description": "",
+   "idc_affinity": "",
+   "name": ""
+}
+</textarea>
+            <button onClick="request('POST','/regions','33','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp33" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "code": 0,
+      "idc_affinity": ""
+   }
+}</textarea><h3 id="index_34"> 1.34 update region </h3>
+            <h4>更新大区</h4>
+            <h4>PATCH &nbsp;<input id='input34' value='/regions/:code'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> idc_affinity </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> 机房亲和性，机房id，多个用逗号分隔，优先级依次降低 </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area34">
+{
+   "description": "",
+   "idc_affinity": "",
+   "name": ""
+}
+</textarea>
+            <button onClick="request('PATCH','/regions/:code','34','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp34" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_35"> 1.35 delete region  </h3>
+            <h4>删除大区</h4>
+            <h4>DELETE &nbsp;<input id='input35' value='/regions/:code'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area35">
+
+</textarea>
+            <button onClick="request('DELETE','/regions/:code','35','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp35" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_36"> 1.36 get all regions </h3>
+            <h4>获取大区列表</h4>
+            <h4>GET &nbsp;<input id='input36' value='/regions'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area36">
+
+</textarea>
+            <button onClick="request('GET','/regions','36','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp36" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_37"> 1.37 get region </h3>
+            <h4>通过code获取大区</h4>
+            <h4>GET &nbsp;<input id='input37' value='/regions/:code'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area37">
+
+</textarea>
+            <button onClick="request('GET','/regions/:code','37','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp37" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_38"> 1.38 get region provinces </h3>
+            <h4>获取大区下的省份</h4>
+            <h4>GET &nbsp;<input id='input38' value='/regions/:code/provinces'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area38">
+
+</textarea>
+            <button onClick="request('GET','/regions/:code/provinces','38','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp38" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "name": "",
+         "code": 0,
+         "region_code": 0,
+         "country_code": 0,
+         "idc_affinity": ""
+      }
+   ]
+}</textarea><h3 id="index_39"> 1.39 get province cities </h3>
+            <h4>获取省份下的城市</h4>
+            <h4>GET &nbsp;<input id='input39' value='/provinces/:code/cities'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area39">
+
+</textarea>
+            <button onClick="request('GET','/provinces/:code/cities','39','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp39" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "name": "",
+         "code": 0,
+         "region_code": 0,
+         "country_code": 0,
+         "idc_affinity": ""
+      }
+   ]
+}</textarea><h3 id="index_40"> 1.40 add province </h3>
+            <h4>添加省份</h4>
+            <h4>POST &nbsp;<input id='input40' value='/provinces'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> maximum: 30000; minimum: 20000;  </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> idc_affinity </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> region_code </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> country_code </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area40">
+{
+   "code": 0,
+   "country_code": 0,
+   "description": "",
+   "idc_affinity": "",
+   "name": "",
+   "region_code": 0
+}
+</textarea>
+            <button onClick="request('POST','/provinces','40','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp40" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "code": 0,
+      "region_code": 0,
+      "country_code": 0,
+      "idc_affinity": ""
+   }
+}</textarea><h3 id="index_41"> 1.41 update province </h3>
+            <h4>更新省份</h4>
+            <h4>PATCH &nbsp;<input id='input41' value='/provinces/:code'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> maximum: 30000; minimum: 10000;  </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> idc_affinity </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> region_code </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> country_code </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area41">
+{
+   "country_code": 0,
+   "description": "",
+   "idc_affinity": "",
+   "name": "",
+   "region_code": 0
+}
+</textarea>
+            <button onClick="request('PATCH','/provinces/:code','41','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp41" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "code": 0,
+      "region_code": 0,
+      "country_code": 0,
+      "idc_affinity": ""
+   }
+}</textarea><h3 id="index_42"> 1.42 get province </h3>
+            <h4>获取省份</h4>
+            <h4>GET &nbsp;<input id='input42' value='/provinces/:code'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area42">
+
+</textarea>
+            <button onClick="request('GET','/provinces/:code','42','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp42" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "code": 0,
+      "region_code": 0,
+      "country_code": 0,
+      "idc_affinity": ""
+   }
+}</textarea><h3 id="index_43"> 1.43 get provinces </h3>
+            <h4>获取省份列表</h4>
+            <h4>GET &nbsp;<input id='input43' value='/provinces'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area43">
+
+</textarea>
+            <button onClick="request('GET','/provinces','43','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp43" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "name": "",
+         "code": 0,
+         "region_code": 0,
+         "country_code": 0,
+         "idc_affinity": ""
+      }
+   ]
+}</textarea><h3 id="index_44"> 1.44 add cities </h3>
+            <h4></h4>
+            <h4>POST &nbsp;<input id='input44' value='/cities'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> maximum: 3000000; minimum: 2000000;  </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> idc_affinity </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> province_code </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area44">
+{
+   "code": 0,
+   "description": "",
+   "idc_affinity": "",
+   "name": "",
+   "province_code": 0
+}
+</textarea>
+            <button onClick="request('POST','/cities','44','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp44" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_45"> 1.45 update city </h3>
+            <h4>更新城市</h4>
+            <h4>PATCH &nbsp;<input id='input45' value='/cities/:code'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> idc_affinity </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> province_code </td>
+                <td> int </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area45">
+{
+   "description": "",
+   "idc_affinity": "",
+   "name": "",
+   "province_code": 0
+}
+</textarea>
+            <button onClick="request('PATCH','/cities/:code','45','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp45" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "code": 0,
+      "province_code": 0,
+      "idc_affinity": ""
+   }
+}</textarea><h3 id="index_46"> 1.46 get city </h3>
+            <h4>获取城市</h4>
+            <h4>GET &nbsp;<input id='input46' value='/cities/:code'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area46">
+
+</textarea>
+            <button onClick="request('GET','/cities/:code','46','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp46" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "name": "",
+      "code": 0,
+      "province_code": 0,
+      "idc_affinity": ""
+   }
+}</textarea><h3 id="index_47"> 1.47 get cities </h3>
+            <h4>获取城市列表</h4>
+            <h4>GET &nbsp;<input id='input47' value='/cities'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area47">
+
+</textarea>
+            <button onClick="request('GET','/cities','47','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp47" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "name": "",
+         "code": 0,
+         "province_code": 0,
+         "idc_affinity": ""
+      }
+   ]
+}</textarea><h3 id="index_48"> 1.48 add parameters </h3>
+            <h4>添加参数对，用于用户自定义参数</h4>
+            <h4>POST &nbsp;<input id='input48' value='/parameters'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> name </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> format: name;  </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> value </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area48">
+{
+   "description": "",
+   "name": "",
+   "value": ""
+}
+</textarea>
+            <button onClick="request('POST','/parameters','48','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp48" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "param_name": "",
+      "value": ""
+   }
+}</textarea><h3 id="index_49"> 1.49 get params value by name </h3>
+            <h4>获取所有的参数对</h4>
+            <h4>GET &nbsp;<input id='input49' value='/parameters/:name'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> name </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area49">
+
+</textarea>
+            <button onClick="request('GET','/parameters/:name','49','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp49" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_50"> 1.50 get All Params </h3>
+            <h4>获取所有的参数对</h4>
+            <h4>GET &nbsp;<input id='input50' value='/parameters'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area50">
+
+</textarea>
+            <button onClick="request('GET','/parameters','50','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp50" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_51"> 1.51 delete parameters </h3>
+            <h4>删除用户自定义参数</h4>
+            <h4>DELETE &nbsp;<input id='input51' value='/parameters/:name/:value'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> name </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> format: name;  </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> value </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> path </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area51">
+
+</textarea>
+            <button onClick="request('DELETE','/parameters/:name/:value','51','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp51" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_52"> 1.52 add country </h3>
+            <h4>添加国家</h4>
+            <h4>POST &nbsp;<input id='input52' value='/countries'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> name </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr><tr>
+                <td> description </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area52">
+{
+   "code": 0,
+   "description": "",
+   "name": ""
+}
+</textarea>
+            <button onClick="request('POST','/countries','52','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp52" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": {
+      "id": "",
+      "create_at": 0,
+      "update_at": 0,
+      "description": "",
+      "code": 0,
+      "name": ""
+   }
+}</textarea><h3 id="index_53"> 1.53 get country list </h3>
+            <h4>获取国家列表</h4>
+            <h4>GET &nbsp;<input id='input53' value='/countries'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area53">
+
+</textarea>
+            <button onClick="request('GET','/countries','53','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp53" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "id": "",
+         "create_at": 0,
+         "update_at": 0,
+         "description": "",
+         "code": 0,
+         "name": ""
+      }
+   ]
+}</textarea><h3 id="index_54"> 1.54 delete country </h3>
+            <h4>删除国家</h4>
+            <h4>DELETE &nbsp;<input id='input54' value='/countries/:code'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> code </td>
+                    <td> int </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area54">
+
+</textarea>
+            <button onClick="request('DELETE','/countries/:code','54','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp54" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_55"> 1.55 get ip info </h3>
+            <h4></h4>
+            <h4>GET &nbsp;<input id='input55' value='/ipinfo/:ip'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> ip </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> path </td>
+                    <td> - </td>
+                </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area55">
+
+</textarea>
+            <button onClick="request('GET','/ipinfo/:ip','55','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp55" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_56"> 1.56 add domain </h3>
+            <h4>添加域名</h4>
+            <h4>POST &nbsp;<input id='input56' value='/domains'></input></h4>
+            <h4>Content-Type: application/json</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+                <tr>
+                    <td> host </td>
+                    <td> string </td>
+                    <td> false </td>
+                    <td> - </td>
+                    <td> - </td>
+                    <td> body </td>
+                    <td> - </td>
+                </tr><tr>
+                <td> group </td>
+                <td> string </td>
+                <td> false </td>
+                <td> - </td>
+                <td> - </td>
+                <td> body </td>
+                <td> - </td>
+            </tr>
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area56">
+{
+   "group": "",
+   "host": ""
+}
+</textarea>
+            <button onClick="request('POST','/domains','56','application/json')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp56" autoHeight cols="30">{
+   "code": 0,
+   "message": ""
+}</textarea><h3 id="index_57"> 1.57 get domains </h3>
+            <h4>获取所有域名</h4>
+            <h4>GET &nbsp;<input id='input57' value='/domains'></input></h4>
+            <h4>Content-Type: -</h4>
+            <h4>请求参数：</h4>
+            <table border="1">
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>required</th>
+                    <th>default</th>
+                    <th>constraints</th>
+                    <th>from</th>
+                    <th>description</th>
+                </tr>
+
+
+            </table>
+
+            <h5>请求示例：</h5>
+            <textarea autoHeight cols="30" id="area57">
+
+</textarea>
+            <button onClick="request('GET','/domains','57','-')">发送请求</button>
+            <br>
+            <a href="#indexes">返回目录</a><br>
+            <a href="#status_anno">响应status解析：</a>
+
+            <h5>响应示例：</h5>
+            <textarea id="resp57" autoHeight cols="30">{
+   "code": 0,
+   "message": "",
+   "data": [
+      {
+         "host": "iat-a.xfyun.cn",
+         "group_n": "xfime",
+         "tags": ""
+      }
+   ]
+}</textarea>
+
+
+            <h3>响应status解析:</h3>
+            <table border="1" id="status_anno">
+                <tr>
+                    <th>statusCode</th>
+                    <th>desc</th>
+                </tr>
+                <tr>
+                    <td>200</td>
+                    <td>请求成功</td>
+                </tr>
+
+                <tr>
+                    <td>404</td>
+                    <td>没有找到目标</td>
+                </tr>
+                <tr>
+
+                <tr>
+                    <td>400</td>
+                    <td>请求参数有误，根据返回的消息,修正请求参数</td>
+                </tr>
+
+                <td>500</td>
+                <td>服务内部错误</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+
+    $(function(){
+        $.fn.autoHeight = function(){
+            function autoHeight(elem){
+                elem.style.height = 'auto';
+                elem.scrollTop = 0; //防抖动
+                elem.style.height = elem.scrollHeight+2 + 'px';
+            }
+            this.each(function(){
+                autoHeight(this);
+                $(this).on('input', function(){
+                    autoHeight(this);
+                });
+                $(this).on('change', function(){
+                    autoHeight(this);
+                });
+            });
+        }
+        $('textarea[autoHeight]').autoHeight();
+    })
+
+    function request(method,route,name,contentType){
+        $.ajax({
+            url: $('#input'+name).val(),
+            type:method,
+            data:$('#area'+name).val(),
+            contentType:contentType,
+            success: function (result) {
+                //console.log(result)
+                t = $('#resp'+name)
+                t.val(result)
+
+            },
+            error: function (result){
+                t = $('#resp'+name)
+                t.val(result.responseText)
+
+            }
+        });
+    }
+
+</script>
+
