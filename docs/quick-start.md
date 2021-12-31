@@ -11,7 +11,7 @@ NS_LOGIN_ENABLED=true 来开启。开启后admin端口会需要通过登陆来�
 ```shell
 
 
-admin=127.0.0.1:28806
+admin=127.0.0.1:8806
 #1 创建机房
 curl -X POST ${admin}/idcs -H 'Content-type:application/json' -d '{"name":"hd"}'
 

@@ -16,8 +16,8 @@ services:
   xns_server:
     image: hub.iflytek.com/aiaas/xns
     ports:
-      - 24567:4567
-      - 28806:8806
+      - 4567:4567
+      - 8806:8806
     environment:
       NS_SERVER_LISTEN: :4567
       NS_ADMIN_LISTEN: :8806
