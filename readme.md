@@ -39,4 +39,4 @@ httpDNS是一种提供http协议域名解析的服务。
 ![benchmark](./docs/benchmark.png)
 
 # 联系我们
-sjliu7@iflytek.com
+![](./xns-weixin-group.png)
