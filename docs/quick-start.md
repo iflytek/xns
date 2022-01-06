@@ -84,9 +84,6 @@ curl -X POST ${admin}/services/srv-test/routes -H 'Content-type:application/json
 
 ```
 
-svc 和 a 均为自定义参数
-
-一件
 
 ### 2 请求域名解析接口
 #### 接口使用方式：
