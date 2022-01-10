@@ -33,6 +33,9 @@ httpDNS是一种提供http协议域名解析的服务。
 
 **2 快速使用**
 
+**3 ip地址池制作**
+IP 地址池是一个记录了Ip地址和地区的映射关系的文件，拥有了IP地址池，httpDNS才拥有自动按照地域分发Ip的功能。IP地址池的制作方法参考[make ip pool](./resource/readme.md)
+
 [start.md](./docs/quick-start.md)
 
 # 性能数据

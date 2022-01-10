@@ -14,7 +14,7 @@ export NS_PG_PORT=5432
 export NS_PG_USER=u_xns
 export NS_PG_DB_NAME=xns
 export NS_PG_PASSWORD=123456
-export NS_IP_SRC=resource/ip.src  # 设置IP 地址池文件
+export NS_IP_SRC=resource/ip.src  # 设置IP 地址池文件，如果没有可以设置为一个空文件。
 
 #3 启动服务
 ./xns

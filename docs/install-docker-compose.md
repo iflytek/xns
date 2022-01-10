@@ -4,7 +4,7 @@
 1 创建好目录xns<br>
     mkdir xns
 
-2 准备[docker-compose.yml](./install/docker-compose.yml) ,并修改其中的数据库地址
+2 准备[docker-compose.yml](./install/docker-compose.yml) ,并修改其中的数据库地址，并准备好IP地址池
 
 3 启动
     docker-compose up -d 

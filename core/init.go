@@ -1,9 +1,9 @@
 package core
 
 import (
-	"fmt"
 	"github.com/xfyun/xns/dao"
 	"github.com/xfyun/xns/models"
+	"log"
 )
 
 type Daoes struct {
@@ -43,12 +43,13 @@ func Init(arg Args) error {
 	// 初始化ip地址池
 	err := gIpReflection.LoadFrom(arg.IpResourcePath)
 	if err != nil {
-		return err
+		log.Println("warn: Ip addr load failed:",err)
+		//return err
 	}
 
-	if gIpReflection.Len() < 1 {
-		return fmt.Errorf("load ip resorce error ,may load wrong ip resource file, a valid length of ip resoure should be larger than 200000,but now is %d", gIpReflection.Len())
-	}
+	//if gIpReflection.Len() < 1 {
+	//	return fmt.Errorf("load ip resorce error ,may load wrong ip resource file, a valid length of ip resoure should be larger than 200000,but now is %d", gIpReflection.Len())
+	//}
 
 	idcs, err := daoes.IdcDao.GetList()
 	if err != nil {

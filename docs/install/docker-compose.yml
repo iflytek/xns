@@ -26,7 +26,7 @@ services:
       NS_PG_USER: u_xns
       NS_PG_DB_NAME: xns
       NS_PG_PASSWORD: 123456
-      NS_IP_SRC: /usr/local/xns/ip.src
+      NS_IP_SRC: /usr/local/xns/ip.src     #ip 地址池，
     volumes:
       - /data/log/xns:/usr/local/xns/log
 
